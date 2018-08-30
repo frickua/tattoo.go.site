@@ -19,6 +19,12 @@ bootJar {
     version =  '0.1.0'
 }
 
+appengine {  // App Engine tasks configuration
+    deploy {   // deploy configuration
+
+    }
+}
+
 repositories {
     mavenCentral()
 }
