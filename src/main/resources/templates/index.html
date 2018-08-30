@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TattoGo</title>
+
+    <!--<link rel="icon" type="image/png" href="\favicon.png">-->
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">-->
+
+    <!-- Custom styles for this template -->
+    <link href="/grayscale/css/grayscale.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+  $( document ).ready(reloadImages);
+
+    function reloadImages() {
+        $.ajax({url: "/head/images", success: function(result){
+            console.log(result);
+            var i;
+            for (i = 0; i < result.length; i++) {
+               document.getElementById('head-img-' + i).src = result[i];
+            }
+    }});
+    }
+
+    var myVar = setInterval(myTimer, Math.floor(Math.random() * 500));
+    var lastSplashId = 0;
+
+    function myTimer() {
+      var splashId = 'head-img-' + Math.floor(Math.random() * 11);
+      <!--var oldSplashId = 'head-img-' + Math.floor(Math.random() * 11);-->
+      try {
+        <!--var src = $('#' + splashId).attr('src');-->
+         <!--$('#' + splashId).attr('src', $('#' + oldSplashId).attr('src'));-->
+         <!--$('#' + oldSplashId).attr('src', src);-->
+      } catch(e) {}
+      try {
+        $('#' + lastSplashId).removeClass("splash");
+      } catch(e) {}
+
+      $('#' + splashId).addClass("splash");
+      console.log($('#' + splashId));
+      lastSplashId = splashId;
+    }
+
+    <!--setTimeout(con, 3000);-->
+
+     function con() {
+      $('.congratulations').addClass('show');
+    }
+
+</script>
+
+  </head>
+
+  <body id="page-top">
+  <div class="congratulations">
+    <span>Котенятко!<br>З днем народження!<br>=)<br><a class="btn btn-primary" style="font-size: xx-small; text-shadow: 0 0;" href="#" onclick="$('.congratulations').removeClass('show');">Дякую!!!</a></span>
+
+  </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><span class="title-cursiv">Gnashuk</span><span class="title"> Tattoo</span></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">О нас</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#projects">Работы</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#signup">Контакты</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center" style="z-index: 10; pointer-events:none;">
+          <h1 class="mx-auto my-0"><span class="head-cursiv">Gnashuk</span><span class="head"> Tattoo</span></h1>
+          <h2 class="text-white-50 mx-auto mt-2 mb-5 italic">Tattoo это искуство. Мы его создаем. Вы становитесь еще особеннее.</h2>
+          <a href="#about" class="btn btn-primary js-scroll-trigger" style="pointer-events:all;">Начнем</a>
+        </div>
+      </div>
+      <div class="container-fluid" style="position: absolute; top: 10%; margin-bottom: 5%; z-index: 1; max-width: 100%; height: 100%;">
+        <div class="row">
+          <div class="col-3"><img id="head-img-0" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-1" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-2" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-3" class="hovered" src=""></div>
+        </div>
+        <div class="row">
+          <div class="col-3"><img id="head-img-4" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-5" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-6" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-7" class="hovered" src=""></div>
+        </div>
+        <div class="row">
+          <div class="col-3"><img id="head-img-8" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-9" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-10" class="hovered" src=""></div>
+          <div class="col-3"><img id="head-img-11" class="hovered" src=""></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="about-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="text-white mb-4">Все ради искуства</h2>
+            <p class="text-white-50" style="text-shadow: 0 0 7px black;">Мы делаем все что бы тату было доступно каждому, но не теряло в качестве. Мы используем самые современные техники.
+              Одноразовые стерильные материалы и самые лучшие краски и оборудование, которые уже хорошо зарекомендовали себя на международном рынке</p>
+          </div>
+        </div>
+        <img style="margin-top: -13em;" src="/instruments.png" class="img-fluid" alt="">
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+
+        <!-- Featured Project Row -->
+        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+          <div class="col-xl-8 col-lg-7">
+            <img class="img-fluid mb-3 mb-lg-0" src="/intenze.png" alt="">
+          </div>
+          <div class="col-xl-4 col-lg-5">
+            <div class="featured-text text-center text-lg-left">
+              <h4 class="text-white">Чернила</h4>
+              <p class="text-white-50 mb-0">Мы используем только американские чернила <a href="http://www.intenzetattooink.com/">Intenze</a>, которые покупаем у <a href="http://www.intenzetattooink.com/shop/locations">официальных поставщиков.</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project One Row -->
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/needles.png" alt="">
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center text-lg-left">
+                  <h4 class="text-white">Иглы</h4>
+                  <p class="mb-0 text-white-50">Стерильные одноразовые иглы для Вашей безопастности, различных типов и размеров, что бы добиться максимальной детализации рисунка. Некоторые работы требуют более десятка различных игл.</p>
+                  <hr class="d-none d-lg-block mb-0 ml-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Two Row -->
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/machines.png" alt="">
+          </div>
+          <div class="col-lg-6 order-lg-first">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center text-lg-right">
+                  <h4 class="text-white">Тату машинки</h4>
+                  <p class="mb-0 text-white-50">В нашем "гараже" лучшие российские и импортные тату машинки роторного и индукционного типов. Мастер использует наиболее подходящие инструменты для конкретной работы.</p>
+                  <hr class="d-none d-lg-block mb-0 mr-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project One Row -->
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/dotwork.png" alt="">
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center text-lg-left">
+                  <h4 class="text-white">Техника и стили</h4>
+                  <p class="mb-0 text-white-50">Мы используем все существующие техники и рабоатем во всех стилях, а не просто копируем эскиз "как могу".</p>
+                  <hr class="d-none d-lg-block mb-0 ml-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section id="signup" class="signup-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+            <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+            <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+
+            <form class="form-inline d-flex">
+              <input type="email" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter email address...">
+              <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section bg-black">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card py-4 h-100 map" style="background-image: url('/map-blur.png'); background-size: 100%;">
+              <a href="https://goo.gl/maps/84wuFJbASmp" target="_blank" rel="noopener noreferrer">
+              <div class="card-body text-center" style="z-index:10;">
+                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                <h4 class="text-uppercase m-0">Адрес</h4>
+                <hr class="my-4">
+                <div class="small text-black-50">Киев, ул. Литвиненко-Вольгемут 4</div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card py-4 h-100">
+              <div class="card-body text-center">
+                <i class="fas fa-envelope text-primary mb-2"></i>
+                <h4 class="text-uppercase m-0">Соц. сети:)</h4>
+                <hr class="my-4">
+                <div class="small text-black-50">
+                  <a href="https://www.instagram.com/olish4e/" target="_blank" rel="noopener noreferrer"><i class="fas fa-instagram text-primary mb-2" style="font-family: Font Awesome\ 5 Brands; font-size: x-large;"></i> olish4e</a>
+                  <a href="https://www.instagram.com/alejjan_/" target="_blank" rel="noopener noreferrer"><i class="fas fa-instagram text-primary mb-2" style="font-family: Font Awesome\ 5 Brands; font-size: x-large;"></i> alejjan_</a>
+                  <br>
+                  <a href="https://www.facebook.com/groups/156415158336700/" target="_blank" rel="noopener noreferrer"><i class="fas fa-facebook text-primary mb-2" style="font-family: Font Awesome\ 5 Brands; font-size: x-large;"></i> TattooGo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card py-4 h-100">
+              <div class="card-body text-center">
+                <i class="fas fa-phone text-primary mb-2" ></i>
+                <h4 class="text-uppercase m-0">Телефон</h4>
+                <hr class="my-4">
+                <div class="small text-black-50">Ольга
+                  <a href="tel:+380631883323">+38(063)188-33-23</a> <a class="fas fa-viber text-primary mb-2" style="font-family: Font Awesome\ 5 Brands; font-size: x-large;" href="viber://chat?number=+380631883323"></a>
+                </div>
+                <div class="small text-black-50">Олег&nbsp;
+                  <a href="tel:+380634854053">+38(063)485-40-53</a> <a class="fas fa-viber text-primary mb-2" style="font-family: Font Awesome\ 5 Brands; font-size: x-large;" href="viber://chat?number=+380634854053"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="social d-flex justify-content-center">
+          <a href="#" class="mx-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="mx-2">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="mx-2">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black small text-center text-white-50">
+      <div class="container">
+        <a href="mailto:frick.ua@gmail.com">Copyright &copy; Anton Solianyk. 2018</a>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/grayscale/js/grayscale.min.js"></script>
+
+  </body>
+
+</html>
