@@ -42,4 +42,5 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 }
