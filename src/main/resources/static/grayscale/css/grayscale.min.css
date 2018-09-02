@@ -117,6 +117,8 @@ height: 30%;
     z-index: 1000;
     font-size: 7vw;;
     visibility: visible;
+}
 
-
+#projects {
+    overflow: hidden;
 }
