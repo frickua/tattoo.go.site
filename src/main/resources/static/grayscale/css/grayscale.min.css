@@ -140,3 +140,7 @@ height: 30%;
 #projects {
     overflow: hidden;
 }
+
+.navbar-collapse.show {
+    opacity: 1!important;
+}
