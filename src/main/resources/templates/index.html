@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,6 +28,12 @@
     <!--<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">-->
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
     <!--<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">-->
+
+      <!-- Plugin CSS -->
+      <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+      <!-- Custom styles for this template -->
+      <!--<link href="css/creative.min.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
     <link href="/grayscale/css/grayscale.min.css" rel="stylesheet">
@@ -79,8 +85,18 @@ sr.reveal('.rotate', {
   $( document ).ready(function() {
     reloadImages();
     reveal();
+    new ResizeObserver(resizeImages).observe($("#galary .row")[0]);
     }
   );
+
+  function resizeImages() {
+    var images = $("img.sized");
+    var row = $("#galary .row")[0];
+    for (i = 0; i < images.length; i++) {
+      images[i].style.maxHeight = (row.clientHeight) + 'px';
+    }
+
+  }
 
     function reloadImages() {
         $.ajax({url: "/head/images", success: function(result){
@@ -88,9 +104,10 @@ sr.reveal('.rotate', {
             var i;
             for (i = 0; i < result.length; i++) {
               var eName = 'head-img-' + i;
-               document.getElementById(eName).src = result[i];
+               document.getElementById(eName).src = result[i].previewUrl;
                setTimeout(function(e){
                   $('#'+e).addClass('sized');
+                  resizeImages();
                 }, 200*i, eName);
             }
     }});
@@ -146,7 +163,7 @@ sr.reveal('.rotate', {
               <a class="nav-link js-scroll-trigger" href="#about">О нас</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#projects">Работы</a>
+              <a class="nav-link js-scroll-trigger" href="#photos">Работы</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#signup">Контакты</a>
@@ -167,22 +184,22 @@ sr.reveal('.rotate', {
       </div>
       <div id="galary" class="container-fluid" style="position: absolute;  margin-bottom: 5%; z-index: 1; max-width: 100%;">
         <div class="row">
-          <div class="col-3"><img id="head-img-0" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-1" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-2" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-3" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-0" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-1" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-2" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-3" class="hovered" src=""></div>
         </div>
         <div class="row">
-          <div class="col-3"><img id="head-img-4" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-5" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-6" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-7" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-4" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-5" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-6" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-7" class="hovered" src=""></div>
         </div>
         <div class="row">
-          <div class="col-3"><img id="head-img-8" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-9" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-10" class="hovered" src=""></div>
-          <div class="col-3"><img id="head-img-11" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-8" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-9" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-10" class="hovered" src=""></div>
+          <div class="head-galary col-4 col-md-3"><img id="head-img-11" class="hovered" src=""></div>
         </div>
       </div>
     </header>
@@ -275,6 +292,48 @@ sr.reveal('.rotate', {
 
       </div>
     </section>
+
+  <section id="photos" class="popup-gallery">
+      <a class="portfolio-box" th:href="${img.url}" th:each="img : ${portfolio}" th:title="${img.title} + '#' + ${img.style}" th:author="${img.author}" th:price="${img.price}">
+          <img class="img-fluid" th:src="${img.url}" width="50vw"/>
+          <div class="portfolio-box-caption">
+              <div class="portfolio-box-caption-content">
+                  <div class="project-name text-faded" >
+                      <span th:text="${img.title} + ' # ' + ${img.style}"/>
+                  </div>
+                  <div class="project-category">
+                    <span>Набъем за: </span><span th:text="${img.price} + ' грн.'">100$</span>
+                  </div>
+                <div class="project-author">
+                  <span>Мастер: </span><span th:text="${img.author}">Гнашук О.</span>
+                </div>
+
+              </div>
+          </div>
+      </a>
+  </section>
+
+  <!--<section class="p-0" id="portfolio">-->
+      <!--<div class="container-fluid p-0">-->
+          <!--<div class="row no-gutters popup-gallery">-->
+              <!--<div class="col-lg-4 col-sm-6" th:each="img : ${portfolio}">-->
+                  <!--<a class="portfolio-box" th:href="${img}">-->
+                      <!--<img class="img-fluid" th:src="${img}" alt="">-->
+                      <!--<div class="portfolio-box-caption">-->
+                          <!--<div class="portfolio-box-caption-content">-->
+                              <!--<div class="project-category text-faded">-->
+                                  <!--Category-->
+                              <!--</div>-->
+                              <!--<div class="project-name">-->
+                                  <!--Project Name-->
+                              <!--</div>-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</a>-->
+              <!--</div>-->
+          <!--</div>-->
+      <!--</div>-->
+  <!--</section>-->
 
     <!--&lt;!&ndash; Signup Section &ndash;&gt;-->
     <!--<section id="signup" class="signup-section">-->
@@ -378,6 +437,10 @@ sr.reveal('.rotate', {
 
     <!-- Custom scripts for this template -->
     <script src="/grayscale/js/grayscale.min.js"></script>
+
+    <script src="/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <script src="/js/gallary.js"></script>
 
   </body>
 
