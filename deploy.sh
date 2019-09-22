@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 git pull
-./gradlew appangineDeploy
+./gradlew appengineDeploy
