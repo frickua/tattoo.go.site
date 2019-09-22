@@ -58,6 +58,10 @@ img.hovered {
         margin-top: -40%;
     }
 
+    .w-100-landscape {
+        display: none;
+    }
+
     #galary.container-fluid {
         top: 12%;
         height: 60%;
@@ -67,6 +71,10 @@ img.hovered {
     #galary.container-fluid {
         height: 100%;
         top: 10%;
+    }
+
+    .w-100-portrait {
+       display: none;
     }
   }
 
@@ -154,6 +162,7 @@ height: 30%;
 
     .portfolio-box .portfolio-box-caption {
          opacity:1;
+         padding-bottom: 4vw;
     }
  }
 
