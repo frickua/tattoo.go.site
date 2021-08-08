@@ -3,8 +3,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.+'
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.4.2'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.5.3")
     }
 }
 
@@ -17,8 +17,8 @@ apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: 'war'
 
 bootJar {
-    baseName = 'tatto-go'
-    version =  '0.1.0'
+    archiveBaseName.set('tattoo-go')
+    archiveVersion.set('0.1.0')
 }
 
 appengine {  // App Engine tasks configuration
@@ -35,17 +35,17 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile 'com.google.appengine:appengine-api-1.0-sdk:+'
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-jetty:2.0.3.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-devtools")
-    testCompile("junit:junit")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
-    compile 'com.google.photos.library:google-photos-library-client:+'
-    compile 'com.google.api-client:google-api-client-appengine:+'
+    implementation 'com.google.appengine:appengine-api-1.0-sdk:1.9.90'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jetty:2.5.3'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'junit:junit'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'com.google.photos.library:google-photos-library-client:+'
+    implementation 'com.google.api-client:google-api-client-appengine:+'
 }
 
 configurations {
