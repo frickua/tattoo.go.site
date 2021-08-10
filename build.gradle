@@ -9,7 +9,6 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -23,7 +22,8 @@ bootJar {
 
 appengine {  // App Engine tasks configuration
     deploy {   // deploy configuration
-
+        version = "GCLOUD_CONFIG"
+        projectId = "GCLOUD_CONFIG"
     }
 }
 
@@ -36,19 +36,14 @@ targetCompatibility = 1.8
 
 dependencies {
     implementation 'com.google.appengine:appengine-api-1.0-sdk:1.9.90'
+    providedCompile 'com.google.appengine:appengine:+'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-jetty:2.5.3'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'junit:junit'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     implementation 'com.google.photos.library:google-photos-library-client:+'
     implementation 'com.google.api-client:google-api-client-appengine:+'
-}
-
-configurations {
-    compile.exclude module: "spring-boot-starter-tomcat"
-    compile.exclude group: "org.eclipse.jetty.websocket"
 }
