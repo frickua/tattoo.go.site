@@ -28,7 +28,24 @@
     image: {
       tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
       titleSrc: function(item) {
-      			return item.el.attr('title') + '<div><small style="float:left;">Набъем за: ' + item.el.attr('price') +' грн</small><small style="float:right;"><i>Мастер: ' + item.el.attr('author') +'</i></small></div>';
+            function isBlank(str) {
+              return str == null || str == undefined || str === '';
+            }
+            title = item.el.attr('title');
+            style = item.el.attr('style');
+            price = item.el.attr('price');
+            author = item.el.attr('author');
+            if (!isBlank(title) && !isBlank(style)) {
+              title = title + ' # ' + style;
+            } else if (!isBlank(style)) {
+              title = style;
+            } else if (isBlank(title)) {
+              title = '';
+            }
+      			return title + '<div>' +
+      		'<small style="float:left;">' + (price == undefined || price == 0 ? 'Цену уточняйте' :  'Набъем за: ' + price +' грн') + '</small>' +
+      		(isBlank(author) ? '' : '<small style="float:right;"><i>Мастер: ' + item.el.attr('author') +'</i></small>')+
+      		'</div>';
       }
     }
   });

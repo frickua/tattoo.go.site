@@ -380,19 +380,22 @@ sr.reveal('.rotate', {
 
 <section id="photos" class="popup-gallery">
     <a class="portfolio-box" th:href="${img.url}" th:each="img : ${portfolio}"
-       th:title="${img.title} + '#' + ${img.style}" th:author="${img.author}"
+       th:title="${img.title}" th:style="${img.style}" th:author="${img.author}"
        th:price="${img.price}">
         <img class="img-fluid" th:src="${img.url}" width="50vw"/>
         <div class="portfolio-box-caption">
             <div class="portfolio-box-caption-content">
                 <div class="project-name text-faded">
-                    <span th:text="${img.title} + ' # ' + ${img.style}"/>
+                    <br th:if="${@indexHelper.isAllBlank(img.title, img.style)}">
+                    <span th:text="${@indexHelper.concatTitleAndStyle(img.title, img.style)}"/>
                 </div>
                 <div class="project-category">
-                    <span>Набъем за: </span><span th:text="${img.price} + ' грн.'">100$</span>
+                    <span th:if="${img.price} == null">Цену уточняйте</span>
+                    <span th:if="${img.price} != null" th:text="'Набъем за: ' + ${img.price} + ' грн.'">100$</span>
                 </div>
                 <div class="project-author">
-                    <span>Мастер: </span><span th:text="${img.author}">Гнашук О.</span>
+                    <br th:if="${@indexHelper.isAllBlank(img.author)}">
+                    <span th:if="!${@indexHelper.isAllBlank(img.author)}" th:text="'Мастер: ' + ${img.author}">Гнашук О.</span>
                 </div>
 
             </div>
