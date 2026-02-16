@@ -6,25 +6,32 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeReque
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tattoo.go.dto.GallaryImageDto;
+import tattoo.go.google.photo.picker.PickerTask;
 import tattoo.go.service.TattooImgService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GallaryController {
 
   @Autowired
   private TattooImgService tattooImgService;
+
+  @Autowired
+  private TaskScheduler taskScheduler;
 
   @ResponseBody
   @RequestMapping("/head/images")
@@ -33,6 +40,32 @@ public class GallaryController {
 //    return tattooImgService.getRandomizedImagesUrls(12);
   }
 
+  @GetMapping("/photo")
+  public String redirectToPicker() {
+    return "redirect:/picker.html";
+  }
+
+  @GetMapping("/picker")
+  public String pickerRedirect(@RequestParam Map<String, String> allRequestParams, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Change code to access token and give it back to picker
+    GoogleTokenResponse tResponse = new GoogleAuthorizationCodeTokenRequest(
+            new NetHttpTransport(),
+            new GsonFactory(),
+            "481370185603-9es1nm32g1d3i8k4sv5r6a97s3a3aq78.apps.googleusercontent.com",
+            "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",
+            allRequestParams.get("code"),
+            "http://localhost:8080/picker" // Спеціальне значення для popup-авторизації
+    ).execute();
+    return "redirect:/picker.html?accessToken=" + tResponse.getAccessToken();
+  }
+
+  @GetMapping("/media-items")
+  public String getMediaItems(@RequestParam String sessionId, @RequestParam String accessToken) {
+    // Wait media items by session id while selected by picker
+    PickerTask task = new PickerTask(tattooImgService, accessToken, sessionId);
+    task.setFuture(taskScheduler.scheduleWithFixedDelay(task, Duration.of(1, ChronoUnit.SECONDS)));
+    return "redirect:/";
+  }
 
   @RequestMapping("/gphotos")
   public String getGPhotosImages(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -77,7 +110,7 @@ public class GallaryController {
   private GoogleTokenResponse requestAccessToken(String code) throws IOException {
     try {
       GoogleTokenResponse response =
-          new GoogleAuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
+          new GoogleAuthorizationCodeTokenRequest(new NetHttpTransport(), new GsonFactory(),
               "481370185603-9es1nm32g1d3i8k4sv5r6a97s3a3aq78.apps.googleusercontent.com",
               "4V-0cjy7yX4M58FCjP_WyNNA",
               code,

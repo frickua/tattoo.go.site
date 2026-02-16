@@ -1,49 +1,56 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.4.2'
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.5.3")
-    }
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.10'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'com.google.cloud.tools.appengine'
-apply plugin: 'war'
 
 bootJar {
     archiveBaseName.set('tattoo-go')
     archiveVersion.set('0.1.0')
 }
 
-appengine {  // App Engine tasks configuration
-    deploy {   // deploy configuration
-        version = "GCLOUD_CONFIG"
-        projectId = "GCLOUD_CONFIG"
-    }
-}
+//appengine {  // App Engine tasks configuration
+//    deploy {   // deploy configuration
+//        version = "GCLOUD_CONFIG"
+//        projectId = "GCLOUD_CONFIG"
+//    }
+//}
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
 
 dependencies {
-    implementation 'com.google.appengine:appengine-api-1.0-sdk:1.9.90'
-    providedCompile 'com.google.appengine:appengine:+'
+    implementation platform("com.google.cloud:libraries-bom:26.75.0")
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.42")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+    // Import the BOM using 'platform()'. This manages the versions of google-api-client libraries.
+//    implementation platform('com.google.api-client:google-api-client-bom:2.8.1') // Use the latest version from
+//    implementation 'com.google.appengine:appengine-api-1.0-sdk:1.9.90'
+//    providedCompile 'com.google.appengine:appengine:+'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'junit:junit'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
-    implementation 'com.google.photos.library:google-photos-library-client:+'
-    implementation 'com.google.api-client:google-api-client-appengine:+'
+//    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'com.google.photos.library:google-photos-library-client:1.7.3'
+    implementation 'com.google.auth:google-auth-library-oauth2-http'
+//    implementation 'com.google.auth:google-auth-library-oauth2-http:1.42.1'
+    implementation 'com.google.auth:google-auth-library-credentials'
+//    implementation 'com.google.auth:google-auth-library-credentials:1.42.1'
+    implementation 'com.google.api-client:google-api-client'
+//    implementation 'com.google.api-client:google-api-client-appengine:+'
+    implementation 'org.apache.commons:commons-lang3:3.20.0'
+//    implementation 'io.grpc:grpc-grpclb:1.79.0'
 }

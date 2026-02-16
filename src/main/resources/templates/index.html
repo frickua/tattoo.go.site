@@ -130,7 +130,7 @@ sr.reveal('.rotate', {
       } catch(e) {}
 
       $('#' + splashId).addClass("splash");
-      console.log($('#' + splashId));
+      // console.log($('#' + splashId));
       lastSplashId = splashId;
     }
 
@@ -142,6 +142,12 @@ sr.reveal('.rotate', {
 
 
     </script>
+    <style>
+        .address {
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+    </style>
 
 </head>
 
@@ -168,16 +174,16 @@ sr.reveal('.rotate', {
         <div class="collapse navbar-collapse from-right-once" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">О нас</a>
+                    <a class="nav-link js-scroll-trigger" href="#about">Про нас</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#photos">Работы</a>
+                    <a class="nav-link js-scroll-trigger" href="#photos">Роботи</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#prices">Цены</a>
+                    <a class="nav-link js-scroll-trigger" href="#prices">Ціни</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#signup">Контакты</a>
+                    <a class="nav-link js-scroll-trigger" href="#signup">Контакти</a>
                 </li>
             </ul>
         </div>
@@ -186,13 +192,22 @@ sr.reveal('.rotate', {
 
 <!-- Header -->
 <header class="masthead">
-    <div id="greatings" class="container d-flex h-100 align-items-center">
-        <div class="mx-auto text-center rotate" style="z-index: 10; pointer-events:none;">
-            <h1 class="mx-auto my-0"><span class="head-cursiv">Gnashuk</span><span class="head"> Tattoo</span>
-            </h1>
-            <h2 class="text-white-50 mx-auto mt-2 mb-5 italic">Tattoo это искусство. Мы его создаем.
-                Вы становитесь еще особеннее.</h2>
-            <a href="#about" class="btn btn-primary js-scroll-trigger" style="pointer-events:all;">Начнем</a>
+    <div id="greatings" class="container d-flex h-100 align-items-center mt-4">
+        <div class="mx-auto text-center rotate"
+             style="z-index: 10; pointer-events:none; backdrop-filter: blur(20px); padding: 2rem; border-radius: 2rem;">
+<!--        <img src="/logo-round.png" style="max-width: 25vw; width: 20rem;"class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">-->
+<!--                <img style="position: absolute;width: 20rem;left: -8rem;top: -3rem;" src="/logo-round.png">-->
+
+                <div>
+                    <img style="max-width: 25vw; width: 20rem; margin-top: -5rem;" src="/logo-round.png">
+                    <h1 class="mx-auto my-0"><span class="head-cursiv">Gnashuk</span><span class="head"> Tattoo</span>
+                    </h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5 italic">Tattoo це мистецтво. Ми його створюємо. Ви стаєте
+                        ще
+                        особливіше.</h2>
+                    <a href="#about" class="btn btn-primary js-scroll-trigger" style="pointer-events:all;">Почнемо</a>
+                </div>
+
         </div>
     </div>
     <div id="galary" class="container-fluid"
@@ -236,12 +251,9 @@ sr.reveal('.rotate', {
     <div class="container from-left">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <h2 class="text-white mb-4">Все ради искусства</h2>
-                <p class="text-white-50" style="text-shadow: 0 0 7px black;">Мы делаем все, что бы
-                    тату было доступно каждому, но не теряло в качестве. Мы используем самые
-                    современные техники.
-                    Одноразовые стерильные материалы и самые лучшие краски и оборудование, которые
-                    уже хорошо зарекомендовали себя на международном рынке</p>
+                <h2 class="text-white mb-4">Все заради мистетсва</h2>
+                <p class="text-white-50" style="text-shadow: 0 0 7px black;">Ми робимо все, що б тату було доступно кожному, але не втрачало в якості. Ми використовуємо найсучасніші техніки.
+                    Одноразові стерильні матеріали та найкращі фарби та обладнання, які вже добре зарекомендували себе на міжнародному ринку</p>
             </div>
         </div>
         <img style="margin-top: -13em;" src="/instruments.png" class="img-fluid" alt="">
@@ -259,11 +271,11 @@ sr.reveal('.rotate', {
             </div>
             <div class="col-xl-4 col-lg-5">
                 <div class="featured-text text-center text-lg-left">
-                    <h4 class="text-white">Чернила</h4>
-                    <p class="text-white-50 mb-0">Мы используем только американские чернила <a
-                            href="http://www.intenzetattooink.com/">Intenze</a>, которые покупаем у
-                        <a href="http://www.intenzetattooink.com/shop/locations">официальных
-                            поставщиков.</a></p>
+                    <h4 class="text-white">Чорнила</h4>
+                    <p class="text-white-50 mb-0">Ми використовуємо лише американські чорнила <a
+                            href="http://www.intenzetattooink.com/">Intenze</a>, які придбали у
+                        <a href="http://www.intenzetattooink.com/shop/locations">офіційних
+                            постачальників.</a></p>
                 </div>
             </div>
         </div>
@@ -277,11 +289,10 @@ sr.reveal('.rotate', {
                 <div class="bg-black text-center h-100 project">
                     <div class="d-flex h-100">
                         <div class="project-text w-100 my-auto text-center text-lg-left">
-                            <h4 class="text-white">Иглы</h4>
-                            <p class="mb-0 text-white-50">Стерильные одноразовые иглы для Вашей
-                                безопастности, различных типов и размеров, что бы добиться
-                                максимальной детализации рисунка. Некоторые работы требуют более
-                                десятка различных игл.</p>
+                            <h4 class="text-white">Ігли</h4>
+                            <p class="mb-0 text-white-50">Стерильні одноразові ігли для Вашої безпеки,
+                                різного типу та розмірів, що б досягти максимальної деталізації малюнку.
+                                Деякі роботи вимагають використання понад 10 різних типів ігл.</p>
                             <hr class="d-none d-lg-block mb-0 ml-0">
                         </div>
                     </div>
@@ -299,10 +310,8 @@ sr.reveal('.rotate', {
                     <div class="d-flex h-100">
                         <div class="project-text w-100 my-auto text-center text-lg-right">
                             <h4 class="text-white">Тату машинки</h4>
-                            <p class="mb-0 text-white-50">В нашем "гараже" лучшие российские и
-                                импортные тату машинки роторного и индукционного типов. Мастер
-                                использует наиболее подходящие инструменты для конкретной
-                                работы.</p>
+                            <p class="mb-0 text-white-50">В нашому "гаражі" найкращі імпортні тату машинки роторного та індукційного типу.
+                                Майстер використовує найбільш відповідні інструменти для конкретної роботи.</p>
                             <hr class="d-none d-lg-block mb-0 mr-0">
                         </div>
                     </div>
@@ -319,9 +328,9 @@ sr.reveal('.rotate', {
                 <div class="bg-black text-center h-100 project">
                     <div class="d-flex h-100">
                         <div class="project-text w-100 my-auto text-center text-lg-left">
-                            <h4 class="text-white">Техника и стили</h4>
-                            <p class="mb-0 text-white-50">Мы используем все существующие техники и
-                                рабоатем во всех стилях, а не просто копируем эскиз "как могу".</p>
+                            <h4 class="text-white">Техніка та стилі</h4>
+                            <p class="mb-0 text-white-50">Ми використовуємо всі наявні техніки та працюємо в усіх стилях,
+                                а не просто копіюємо ескіз "як можу".</p>
                             <hr class="d-none d-lg-block mb-0 ml-0">
                         </div>
                     </div>
@@ -348,27 +357,20 @@ sr.reveal('.rotate', {
                     <div class="d-flex h-100">
                         <div class="project-text w-100 my-auto text-center text-lg-left"
                              style="padding: 3rem;">
-                            <h4 class="text-white">Цены на тату</h4>
-                            <p class="mb-0 text-white-50">Цены на татуировки формируются достаточно
-                                сложно.
-                                На цены влияет и размер тату и стиль в котором выполнена работа и
-                                место на которое
-                                наносится татуировка. Клиенту очень сложно самому, даже примерно,
-                                оценить сложность
-                                и цену тату, поэтому самым надежным способом будет прислать эскиз
-                                мастеру на оценку.
-                                Многие салоны формируют цены на тату за час работы мастера, но мы
-                                считаем, что этот
-                                способ удобен только тату мастеру, а не клиенту. Мы предлагаем Вам
-                                ознокомится с нашими
-                                тату <a href="#photos">работами</a>, рядом с которыми Вы найдете
-                                актуальные на сегодня цены на татуировку по
-                                точно такому же эскизу. Что бы максимально точно прикинуть цену на
-                                Ваше тату - подбирайте
-                                максимально похожие по размеру и стилю татуировки из <a
-                                        href="#photos">наших работ</a>. И не стесняйтесь -
-                                присылайте Ваш эскиз татуировки мастеру на оценку, всегда будем рады
-                                ответить на любые Ваши вопросы.</p>
+                            <h4 class="text-white">Ціни на тату</h4>
+                            <p class="mb-0 text-white-50">Ціни на тату формуються досить складно.
+                                На ціни впливають як розмір, так і стиль в якому виконана робота
+                                так і місце, на котре наноситься тату.
+                                Клієнту дуже складно самому, навіть приблизно оцінити складність та ціну тату.
+                                Тому найнадійнішим способом буде прислати майстру ескіз на оцінку.
+                                Більшість салонів формують ціни за тату за годину роботи майстра, та ми вважаємо,
+                                що цей спосіб зручний лише для тату майстра, а не клієнту.
+                                Ми пропонуємо ознайомитись з нашими тату
+                                <a href="#photos">роботами</a>, поруч з котрими ви знайдете актуальні на сьогодні ціни
+                                на тату за таким самим ескізом. Що б максимально точно прикинути вартість на ваше тату -
+                                підбирайте максимально схожі за розміром та стилем тату з <a href="#photos">наших робіт</a>.
+                                Та не соромтесь - надсилайте ваш ескіз тату майстру на оцінку,
+                                завжди будемо раді відповісти на будь-які ваші питання.</p>
                             <hr class="d-none d-lg-block mb-0 ml-0">
                         </div>
                     </div>
@@ -390,12 +392,12 @@ sr.reveal('.rotate', {
                     <span th:text="${@indexHelper.concatTitleAndStyle(img.title, img.style)}"/>
                 </div>
                 <div class="project-category">
-                    <span th:if="${img.price} == null">Цену уточняйте</span>
-                    <span th:if="${img.price} != null" th:text="'Набъем за: ' + ${img.price} + ' грн.'">100$</span>
+                    <span th:if="${img.price} == null">Ціну уточнюйте</span>
+                    <span th:if="${img.price} != null" th:text="'Наб\'ємо за: ' + ${img.price} + ' грн.'">100$</span>
                 </div>
                 <div class="project-author">
                     <br th:if="${@indexHelper.isAllBlank(img.author)}">
-                    <span th:if="!${@indexHelper.isAllBlank(img.author)}" th:text="'Мастер: ' + ${img.author}">Гнашук О.</span>
+                    <span th:if="!${@indexHelper.isAllBlank(img.author)}" th:text="'Майстер: ' + ${img.author}">Гнашук О.</span>
                 </div>
 
             </div>
@@ -452,16 +454,16 @@ sr.reveal('.rotate', {
 
             <div class="col-md-4 mb-3 mb-md-0 rotate">
                 <div class="card py-4 h-100 map"
-                     style="background-image: url('/map-blur.png'); background-size: 100%;">
-                    <a href="https://goo.gl/maps/2XYNzxp6HxH3ZpLRA" target="_blank"
+                     style="background-image: url('/map-blur-2.png'); background-size: 100%;">
+                    <a href="https://maps.app.goo.gl/sinP3NFXv9omAfJ17" target="_blank"
                        rel="noopener noreferrer">
                         <div class="card-body text-center" style="z-index:10;">
                             <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                            <h4 class="text-uppercase m-0">Адрес</h4>
+                            <h4 class="text-uppercase m-0">Адреса</h4>
                             <hr class="my-4">
-                            <div class="small text-black-50">Киев, п-т. Победы 61/2</div>
-                            <div class="small text-black-50">Салон Комильфо</div>
-                            <div class="small text-black-50"><i class="fa fa-subway" aria-hidden="true"></i> м.Берестейская <i class="fas fa-walking"></i> 5 мин (400м)</div>
+                            <div class="small text-black-50 address">Київ, вул. Теремківська 3а</div><br>
+                            <div class="small text-black-50 address">Honey beauty bar</div><br>
+                            <div class="small text-black-50 address"><i class="fa fa-subway" aria-hidden="true"></i> м.Теремки <i class="fas fa-walking"></i> 5 хв (500м)</div>
                         </div>
                     </a>
                 </div>
@@ -471,7 +473,7 @@ sr.reveal('.rotate', {
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
                         <i class="fas fa-envelope text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Соц. сети:)</h4>
+                        <h4 class="text-uppercase m-0">Соц. мережі:)</h4>
                         <hr class="my-4">
                         <div class="small text-black-50">
                             <a href="https://www.instagram.com/olish4e/" target="_blank"

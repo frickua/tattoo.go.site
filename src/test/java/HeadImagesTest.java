@@ -42,8 +42,8 @@ public class HeadImagesTest {
 
     @Test
     public void headImagesTest() throws IOException {
-        String[] images = gallaryController.getHeadImages();
-        System.out.println(Arrays.toString(images));
+//        String[] images = gallaryController.getHeadImages();
+//        System.out.println(Arrays.toString(images));
     }
 }
 

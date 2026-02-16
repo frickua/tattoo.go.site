@@ -6,21 +6,33 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.photos.library.v1.PhotosLibraryClient;
 import com.google.photos.library.v1.PhotosLibrarySettings;
 import com.google.photos.library.v1.internal.InternalPhotosLibraryClient;
+import com.google.photos.library.v1.proto.*;
+import com.google.photos.library.v1.upload.UploadMediaItemRequest;
+import com.google.photos.library.v1.upload.UploadMediaItemResponse;
 import com.google.photos.types.proto.Album;
 import com.google.photos.types.proto.MediaItem;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import tattoo.go.dto.GallaryImageDto;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class TattooImgService {
 
@@ -95,6 +107,80 @@ public class TattooImgService {
       gallaryImageDtos.subList(limit, gallaryImageDtos.size()).clear();
     }
     return gallaryImageDtos;
+  }
+
+  @SneakyThrows
+  public void saveImagesToGPhotos(List<tattoo.go.google.photo.picker.dto.MediaItem> mediaItems, String authToken) {
+    List<GallaryImageDto> gallaryImageDtos = new ArrayList<>();
+//		FileInputStream fis = new FileInputStream("C:\\sources\\tattoo.go.site\\cred.json");
+    InputStream is = resourcePatternResolver.getResource("classpath:cred.json").getInputStream();
+
+    GoogleCredentials credential = GoogleCredentials.fromStream(is);
+
+    PhotosLibrarySettings settings = PhotosLibrarySettings.newBuilder()
+            .setCredentialsProvider(FixedCredentialsProvider.create(credential))
+            .build();
+    try (PhotosLibraryClient photosLibraryClient =
+                 PhotosLibraryClient.initialize(settings)) {
+
+      InternalPhotosLibraryClient.ListAlbumsPagedResponse albums = photosLibraryClient.listAlbums();
+      String albumId = null;
+      for (Album album : albums.iterateAll()) {
+        String title = album.getTitle();
+        if (title.equals("TattooGO")) {
+          albumId = album.getId();
+          break;
+        }
+      }
+      if (albumId == null) {
+        albumId = photosLibraryClient.createAlbum("TattooGO").getId();
+      }
+
+      List<String> uploadTokens = new ArrayList<>();
+      RestTemplate restTemplate = new RestTemplate();
+      for (tattoo.go.google.photo.picker.dto.MediaItem mediaItem : mediaItems) {
+        Path tmp = Files.createTempFile("", mediaItem.getMediaFile().getFilename());
+
+        restTemplate.execute(
+                mediaItem.getMediaFile().getBaseUrl(),
+                HttpMethod.GET,
+                request -> {
+                  request.getHeaders().setBearerAuth(authToken);
+                },
+                response -> {
+                  Files.copy(
+                          response.getBody(),
+                          tmp,
+                          StandardCopyOption.REPLACE_EXISTING
+                  );
+                  return null;
+                }
+        );
+
+        UploadMediaItemResponse r = photosLibraryClient.uploadMediaItem(UploadMediaItemRequest.newBuilder()
+                .setDataFile(new RandomAccessFile(tmp.toFile(), "r"))
+                .setMimeType(mediaItem.getMediaFile().getMimeType())
+                .build());
+        r.getUploadToken().ifPresent(uploadTokens::add);
+        r.getError().ifPresent(e -> log.error("Can not upload item {}, {}", mediaItem, e));
+      }
+
+
+      BatchCreateMediaItemsRequest.Builder batchRequestBuilder = BatchCreateMediaItemsRequest.newBuilder().setAlbumId(albumId);
+
+      for (String uploadToken : uploadTokens) {
+        batchRequestBuilder.addNewMediaItems(NewMediaItem.newBuilder()
+                .setSimpleMediaItem(
+                        SimpleMediaItem.newBuilder()
+                                .setUploadToken(uploadToken)
+                                .build())
+                .build());
+      }
+
+      BatchCreateMediaItemsResponse response = photosLibraryClient.batchCreateMediaItems(batchRequestBuilder.build());
+      log.info("Photos uploaded {}", response);
+
+    }
   }
 
 }
