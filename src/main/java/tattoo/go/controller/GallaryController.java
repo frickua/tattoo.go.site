@@ -9,6 +9,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 public class GallaryController {
 
@@ -48,13 +50,18 @@ public class GallaryController {
   @GetMapping("/picker")
   public String pickerRedirect(@RequestParam Map<String, String> allRequestParams, HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Change code to access token and give it back to picker
+    log.info("Try to get auth token for {}", request.getRequestURL().toString());
+    String url = request.getRequestURL().toString();
+    if (url.toLowerCase().contains("tattoogo.com.ua")) { // Behind revers proxy return http instead https, but fail on uri mismatch
+      url = url.replace("http:", "https:");
+    }
     GoogleTokenResponse tResponse = new GoogleAuthorizationCodeTokenRequest(
             new NetHttpTransport(),
             new GsonFactory(),
             "481370185603-9es1nm32g1d3i8k4sv5r6a97s3a3aq78.apps.googleusercontent.com",
             "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",
             allRequestParams.get("code"),
-            "http://localhost:8080/picker" // Спеціальне значення для popup-авторизації
+            url // Спеціальне значення для popup-авторизації
     ).execute();
     return "redirect:/picker.html?accessToken=" + tResponse.getAccessToken();
   }
